@@ -42,13 +42,9 @@ const generateImageMarkup = (image) => {
   `;
 };
 
-const displayImages = (images, append = false) => {
+const displayImages = (images) => {
   const markup = images.map(generateImageMarkup).join('');
-  if (append) {
-    gallery.insertAdjacentHTML('beforeend', markup);
-  } else {
-    gallery.innerHTML = markup;
-  }
+  gallery.insertAdjacentHTML('beforeend', markup);
 };
 
 const updateLoadMoreButton = () => {
@@ -100,7 +96,7 @@ loadMoreButton.addEventListener('click', async () => {
 
   try {
     const data = await fetchImages(currentQuery, currentPage, perPage);
-    displayImages(data.hits, true);
+    displayImages(data.hits);
     updateLoadMoreButton();
   } catch (error) {
     iziToast.error({
